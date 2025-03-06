@@ -6,6 +6,7 @@
 
 <script setup>
 import { ref, onMounted } from "vue";
+import { Bar } from 'vue-chartjs'
 const scores = ref('')
 async function getData(){
     let res = await fetch(`https://data.cityofnewyork.us/resource/f9bf-2cp4.json`)
