@@ -85,15 +85,17 @@ nav a:first-of-type {
 </style> -->
 
 <template>
-  <VueCharts />
+  <div>
+    <RouterView />
+  </div>
 </template>
 
 <script>
 import { RouterLink, RouterView } from 'vue-router';
-import VueCharts from './components/VueCharts.vue';
+/* import VueCharts from './components/VueCharts.vue';
 
 export default {
   name: 'App',
   components: { VueCharts }
-}
+} */
 </script>
