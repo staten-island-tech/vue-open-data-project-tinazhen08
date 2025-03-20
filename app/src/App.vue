@@ -91,7 +91,7 @@ nav a:first-of-type {
 </template>
 
 <script>
-import { RouterLink, RouterView } from 'vue-router';
+import { RouterLink, RouterView } from 'vue-router'
 /* import VueCharts from './components/VueCharts.vue';
 
 export default {
