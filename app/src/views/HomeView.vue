@@ -1,12 +1,26 @@
 <template>
-  <main>
-    <div v-if="!schoolSelected">
-      <SchoolsCard v-for="(school, index) in schools" :key="index" :schools="school" :id="index + 1"
-        ><button @click="chooseSchool(school)">Select School</button></SchoolsCard
+  <main class="min-h-screen bg-gray-200 py-10">
+    <div v-if="!schoolSelected" class="flex flex-wrap justify-center gap-6">
+      <SchoolsCard
+        v-for="(school, index) in schools"
+        :key="index"
+        :schools="school"
+        :id="index + 1"
+        class="max-w-xs"
       >
+        <div class="flex justify-center mt-4">
+          <button
+            @click="chooseSchool(school)"
+            class="bg-gray-600 text-white px-4 py-2 rounded-md hover:bg-gray-800"
+          >
+            Select School
+          </button>
+        </div>
+      </SchoolsCard>
     </div>
-    <div v-if="schoolSelected">
-      <SchoolInfo :school="schoolChosen" />
+
+    <div v-if="schoolSelected" class="flex justify-center mt-10">
+      <SchoolInfo :school="schoolChosen" class="max-w-4xl w-full" />
     </div>
   </main>
 </template>
@@ -36,3 +50,5 @@ const chooseSchool = (school) => {
   schoolSelected.value = true
 }
 </script>
+
+<style scoped></style>
