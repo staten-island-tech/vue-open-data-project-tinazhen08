@@ -7,17 +7,17 @@ const router = createRouter({
     {
       path: '/',
       name: 'home',
-      component: HomePage
+      component: HomePage,
     },
     {
       path: '/bar-chart',
       name: 'bar-chart',
-      component: () => import('../views/BarPage.vue')
+      component: () => import('../views/BarPage.vue'),
     },
     {
       path: '/pie-chart',
       name: 'pie-chart',
-      component: () => import('../views/PiePage.vue')
+      component: () => import('../views/PiePage.vue'),
     },
   ],
 })

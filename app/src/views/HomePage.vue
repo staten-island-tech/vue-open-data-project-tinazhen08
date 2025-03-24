@@ -1,37 +1,39 @@
 <template>
-  <main class="min-h-screen bg-gray-200 py-10">
-    <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-6 px-4">
-      <div v-for="(school, index) in schools" :key="index" class="w-full flex justify-center">
-        <div
-          class="bg-white p-4 rounded-lg shadow-md w-full max-w-sm h-64 flex flex-col justify-between"
-        >
-          <div class="bg-gray-600 text-white p-4 rounded-t-lg w-full">
-            <h2 class="text-2xl font-bold text-center truncate">{{ school.school_name }}</h2>
-          </div>
-          <div class="p-4 flex flex-col justify-between flex-grow">
-            <p class="text-gray-600 text-center text-sm">DBN: {{ school.dbn }}</p>
-          </div>
-          <div class="bg-gray-200 p-4">
-            <div class="flex justify-center">
-              <button
-                @click="chooseSchool(school)"
-                class="bg-gray-600 text-white px-4 py-2 rounded-md hover:bg-gray-800"
-              >
-                Select School
-              </button>
-            </div>
-          </div>
-        </div>
-      </div>
+  <main class="min-h-screen bg-gray-200 py-6">
+    <SiteHeader />
+
+    <div class="mb-6 px-4 max-w-screen-xl mx-auto mt-6">
+      <input
+        v-model="searchQuery"
+        type="text"
+        placeholder="Search for a school..."
+        class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+      />
+    </div>
+
+    <div
+      class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-6 px-4 max-w-screen-xl mx-auto"
+    >
+      <SchoolsCard
+        v-for="(school, index) in filteredSchools"
+        :key="index"
+        :schools="school"
+        :id="school.dbn"
+        @select-school="chooseSchool(school)"
+      />
     </div>
   </main>
 </template>
 
 <script setup>
-import { ref, onMounted } from 'vue'
+import { ref, onMounted, computed } from 'vue'
 import { useRouter } from 'vue-router'
+import SchoolsCard from '@/components/SchoolsCard.vue'
+import SiteHeader from '@/components/SiteHeader.vue'
 
 const schools = ref([])
+const searchQuery = ref('')
+
 const router = useRouter()
 
 async function getData() {
@@ -42,6 +44,12 @@ async function getData() {
 
 onMounted(() => {
   getData()
+})
+
+const filteredSchools = computed(() => {
+  return schools.value.filter((school) => {
+    return school.school_name.toLowerCase().includes(searchQuery.value.toLowerCase())
+  })
 })
 
 const chooseSchool = (school) => {
